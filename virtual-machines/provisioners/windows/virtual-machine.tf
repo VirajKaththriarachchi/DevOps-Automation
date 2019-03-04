@@ -30,6 +30,7 @@ resource "azurerm_virtual_machine" "example" {
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "Standard_LRS"
+    //vhd_uri       = "${azurerm_storage_account.test.primary_blob_endpoint}${azurerm_storage_container.test.name}/myosdisk1.vhd"
   }
 
   os_profile {
@@ -39,14 +40,14 @@ resource "azurerm_virtual_machine" "example" {
     custom_data    = "${local.custom_data_content}"
   }
 
-  os_profile_secrets {
-    source_vault_id = "${azurerm_key_vault.main.id}"
+  # os_profile_secrets {
+  #   source_vault_id = "${azurerm_key_vault.main.id}"
 
-    vault_certificates {
-      certificate_url   = "${azurerm_key_vault_certificate.main.secret_id}"
-      certificate_store = "My"
-    }
-  }
+  #   vault_certificates {
+  #     certificate_url   = "${azurerm_key_vault_certificate.main.secret_id}"
+  #     certificate_store = "My"
+  #   }
+  # }
 
   os_profile_windows_config {
     provision_vm_agent        = true
